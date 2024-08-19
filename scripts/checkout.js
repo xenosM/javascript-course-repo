@@ -3,11 +3,11 @@ import {products,loadProducts} from '../data/products.js'
 import { updateCartIcon } from './amazon.js'
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions} from '../data/deliveryOptions.js'
-import { addOrder } from '../data/orders.js'
+// import { addOrder } from '../data/orders.js'
 // import '../data/backend-practice.js'
 // import '../data/cart-class.js'
 
-
+export let totalPrice;
 //FUNCTION FOR RENDERING CART LIST
 function renderCheckout(){
   let productList = ''
@@ -181,6 +181,7 @@ function renderPayment(){
   const totalBeforeTaxCents =productPriceCents + shippingPriceCents;
   const estimatedTax = 0.1 * totalBeforeTaxCents;
   const totalCents = totalBeforeTaxCents + estimatedTax;
+  totalPrice = (totalCents/100).toFixed(2)
 //RENDERING PAYMENT SECTION
   const paymentHtml = 
     `
@@ -210,7 +211,7 @@ function renderPayment(){
     
       <div class="payment-summary-row total-row">
         <div>Order total:</div>
-        <div class="payment-summary-money">$${(totalCents/100).toFixed(2)}</div>
+        <div class="payment-summary-money">$${totalPrice}</div>
       </div>
     
       <button class="place-order-button button-primary">
@@ -220,45 +221,33 @@ function renderPayment(){
     
     document.querySelector('.payment-summary').innerHTML= paymentHtml;
 //ADD ORDER TO BACKEND
-    document.querySelector('.place-order-button').onclick = async ()=>{
-      try{
-        const response = await fetch('https://supersimplebackend.dev/orders',{
-          method : 'POST',
-          headers: {
-            'Content-type':'application/json'
-          },
-          body : JSON.stringify({
-            cart : cart
+      document.querySelector('.place-order-button').onclick =  ()=>{
+        if(cart.length == 0){
+          alert('cart cannot be empty')
+        }
+        else{
+          import('./orders.js').then((orders)=>{
+          const order = cart
+          orders.addOrder(order);
+          location.href = 'orders.html';
+          localStorage.removeItem('cart');
           })
-        })
-        const order = await response.json();
-        addOrder(order)
+        }
       }
-      catch(error){
-        alert('unexpected error!!')
-      }
-      location.href = 'orders.html';
-    }
     
-}
+} 
 
-//PROMISE
-new Promise((resolve)=>{
-  loadProducts(()=>{
-    resolve('value1')
-  })
-}).then((value)=>{
-  return new Promise((resolve)=>{
-    loadCart(()=>{
-      resolve();
+//CODE WITH PROMISE
+  new Promise((resolve)=>{
+    loadProducts(()=>{
+      resolve()
     })
+  }).then(()=>{
+    renderCheckout();
+    renderPayment();
   })
-}).then(()=>{
-  renderCheckout();
-  renderPayment();
-})
-//CODE
-// loadProducts(()=>{
-//   renderCheckout();
-//   renderPayment();
-// });
+//CODE WITHOUT PROMISE
+    // loadProducts(()=>{
+    //   renderCheckout();
+    //   renderPayment();
+    // });

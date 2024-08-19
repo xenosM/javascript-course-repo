@@ -1,10 +1,10 @@
-// import {renderProductsGrid} from '../scripts/amazon.js';
-class Product{
+export class Product{
   id;
   image;
   name;
   rating;
-  priceCents
+  priceCents;
+  keywords;
 
   constructor(productDetails){
     this.id= productDetails.id;
@@ -12,6 +12,7 @@ class Product{
     this.name = productDetails.name;
     this.rating = productDetails.rating;
     this.priceCents = productDetails.priceCents;
+    this.keywords = productDetails.keywords;
   }
 
   getStarsUrl(){
@@ -25,7 +26,7 @@ class Product{
   }
 }
 
-class Clothing extends Product{
+export class Clothing extends Product{
   sizeChartLink;
   constructor(productDetails){
     super(productDetails);
@@ -35,7 +36,7 @@ class Clothing extends Product{
     return `<a href="${this.sizeChartLink}" target="_blank">Show Chart</a>`
   }
 }
-class Appliances extends Product{
+export class Appliances extends Product{
   instructionLink;
   warrentyLink;
   constructor(productDetails){
@@ -68,15 +69,15 @@ function loadFetch(){
   const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
     return response.json();
   }).then((productData)=>{
-    console.log(productData);
+    // console.log(productData);
   })
   return promise;
 }
 loadFetch().then(()=>{
-  console.log('fetch load complete')
+  // console.log('fetch load complete')
 });
 //XMLHttpRequest  
-export let products=[]
+export let products=[];
 
 export function loadProducts(func){
   const xhr = new XMLHttpRequest();
@@ -88,7 +89,7 @@ export function loadProducts(func){
       return new Product(productDetails);
     });
     func();
-    console.log('Load Product Sucessful')
+    localStorage.setItem('products',JSON.stringify(products))
   })
   
   xhr.open('GET','https://supersimplebackend.dev/products')
