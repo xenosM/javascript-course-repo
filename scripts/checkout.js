@@ -158,6 +158,8 @@ function renderCheckout(){
     return html;
   }
   })
+  //end loading
+  document.querySelector('.loader').style.display = 'none'
 }
 
 //FUNCTION FOR RENDERING PAYMENT SECTION

@@ -99,3 +99,17 @@ select:focus,
 input:focus {
   outline: 2px solid rgb(255, 153, 0);
 }
+/* LOADING ANIMATION */
+.loader{
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  width: fit-content;
+  font-family: monospace;
+  clip-path: inset(0 5ch 0 0);
+  animation: loading 2s steps(6) infinite;
+  margin: 0 auto;
+}
+@keyframes loading{
+  to{clip-path: inset(0 -1ch 0 0);}
+}

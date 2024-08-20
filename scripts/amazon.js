@@ -180,4 +180,8 @@ function renderFilteredProducts(filteredProducts){
               renderFilteredProducts(filteredProducts);
            
             })
+            //end loading
+            document.querySelector('.loader').style.display = 'none'
+
   }
+
