@@ -1,0 +1,20 @@
+<svg width="85" height="85" viewBox="0 0 85 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="cart">
+<g id="cart-body">
+<line id="side2" x1="13.4287" y1="31.7428" x2="25.4287" y2="51.7428" stroke="black"/>
+<line id="base" x1="25" y1="51.5" x2="53" y2="51.5" stroke="black"/>
+<line id="side1" x1="52.5716" y1="51.7237" x2="64.5949" y2="31.7422" stroke="black"/>
+<line id="top" x1="13" y1="31.5" x2="65" y2="31.5" stroke="black"/>
+</g>
+<g id="cart-wheels">
+<g id="wheels1">
+<circle id="outer1" cx="27" cy="56" r="3" fill="black"/>
+<circle id="inner1" cx="27" cy="56" r="1" fill="white"/>
+</g>
+<g id="wheels2">
+<circle id="outer2" cx="52" cy="56" r="3" fill="black"/>
+<circle id="inner2" cx="52" cy="56" r="1" fill="white"/>
+</g>
+</g>
+</g>
+</svg>
